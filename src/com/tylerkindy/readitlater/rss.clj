@@ -16,5 +16,6 @@
 
 (defn element->map [element keys]
   (->> keys
-       (map (fn [key] {key (get-str element key)}))
-       (apply merge)))
+       (map (fn [key] [key (get-str element key)]))
+       (filter (comp not nil? second))
+       (into {})))

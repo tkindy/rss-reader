@@ -45,4 +45,7 @@
 (deftest element->map
   (is (= (r/element->map empty-channel [:title :description])
          {:title "Empty blog"
+          :description "This is a blog with no posts"}))
+  (is (= (r/element->map empty-channel [:title :foo :description])
+         {:title "Empty blog"
           :description "This is a blog with no posts"})))
