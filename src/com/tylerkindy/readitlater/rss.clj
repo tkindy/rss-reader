@@ -12,8 +12,8 @@
 
 (defn get-str [element tag]
   (let [s (->> (get-child element tag)
-             :content
-             first)]
+               :content
+               first)]
     (if s
       (str/trim s)
       s)))
