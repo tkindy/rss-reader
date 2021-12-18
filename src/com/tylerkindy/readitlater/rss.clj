@@ -1,6 +1,7 @@
 (ns com.tylerkindy.readitlater.rss
   (:require [clojure.data.xml :as xml]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [com.tylerkindy.readitlater.html :as html]))
 
 (defn get-children [element tag]
   (->> element
@@ -25,7 +26,9 @@
        (into {})))
 
 (defn build-item [element]
-  (element->map element [:title :link :description]))
+  (let [{:keys [description link], :as element}
+        (element->map element [:title :link :description])]
+    (assoc element :description (html/clean description link))))
 
 (defn parse-rss [input]
   (let [parsed (xml/parse input)

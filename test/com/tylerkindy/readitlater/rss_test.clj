@@ -63,6 +63,17 @@
          {:title "Empty blog"
           :description "This is a blog with no posts"})))
 
+(deftest build-item
+  (is (= (r/build-item (xml/sexp-as-element
+                        [:item
+                         [:title "Dangerous item"]
+                         [:link "https://blog.example.com/dangerous"]
+                         [:description "<p>Some text</p><script>console.log('And a script!')</script><p>More text</p>"]]))
+         {:title "Dangerous item"
+          :link "https://blog.example.com/dangerous"
+          :description "<p>Some text</p>\n<p>More text</p>"})
+      "Cleans dangerous HTML"))
+
 (deftest parse-rss
   (is (= (r/parse-rss (java.io.FileReader. "test/examples/empty.xml"))
          {:title "Empty blog" :link "https://blog.example.com/empty"
