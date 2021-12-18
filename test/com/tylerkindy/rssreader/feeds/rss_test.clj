@@ -1,5 +1,5 @@
-(ns com.tylerkindy.rssreader.rss-test
-  (:require [com.tylerkindy.rssreader.rss :as r]
+(ns com.tylerkindy.rssreader.feeds.rss-test
+  (:require [com.tylerkindy.rssreader.feeds.rss :as r]
             [clojure.test :refer [deftest is]]
             [clojure.data.xml :as xml]
             [clojure.string :as str]))
@@ -23,7 +23,10 @@
   (let [parsed (xml/parse input)]
     (clean-content parsed)))
 
-(def empty-feed (parse-xml (java.io.FileReader. "test/examples/empty.xml")))
+(defn example [name]
+  (java.io.FileReader. (str "test/examples/rss/" name)))
+
+(def empty-feed (parse-xml (example "empty.xml")))
 (def empty-channel (r/get-child empty-feed :channel))
 
 (deftest get-children
@@ -75,11 +78,11 @@
       "Cleans dangerous HTML"))
 
 (deftest parse-rss
-  (is (= (r/parse-rss (java.io.FileReader. "test/examples/empty.xml"))
+  (is (= (r/parse-rss (example "empty.xml"))
          {:title "Empty blog" :link "https://blog.example.com/empty"
           :description "This is a blog with no posts"
           :items (list)}))
-  (is (= (r/parse-rss (java.io.FileReader. "test/examples/blog.xml"))
+  (is (= (r/parse-rss (example "blog.xml"))
          {:title "My blog" :link "https://blog.example.com/blog"
           :description "Here's a real blog"
           :items (list

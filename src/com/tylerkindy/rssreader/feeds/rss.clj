@@ -1,4 +1,4 @@
-(ns com.tylerkindy.rssreader.rss
+(ns com.tylerkindy.rssreader.feeds.rss
   (:require [clojure.data.xml :as xml]
             [clojure.string :as str]
             [com.tylerkindy.rssreader.html :as html]))
