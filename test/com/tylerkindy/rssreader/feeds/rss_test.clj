@@ -75,7 +75,10 @@
          {:title "Dangerous item"
           :link "https://blog.example.com/dangerous"
           :description "<p>Some text</p>\n<p>More text</p>"})
-      "Cleans dangerous HTML"))
+      "Cleans dangerous HTML")
+  (is (= (r/build-item (xml/sexp-as-element [:item]))
+         {})
+      "Handles missing properties"))
 
 (deftest parse-rss
   (is (= (r/parse-rss (example "empty.xml"))

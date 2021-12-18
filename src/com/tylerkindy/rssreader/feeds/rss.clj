@@ -28,7 +28,9 @@
 (defn build-item [element]
   (let [{:keys [description link], :as element}
         (element->map element [:title :link :description])]
-    (assoc element :description (html/clean description link))))
+    (if description
+      (assoc element :description (html/clean description link))
+      element)))
 
 (defn parse-rss [input]
   (let [parsed (xml/parse input)
