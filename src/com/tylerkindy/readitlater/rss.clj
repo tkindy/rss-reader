@@ -1,5 +1,6 @@
 (ns com.tylerkindy.readitlater.rss
-  (:require [clojure.data.xml :as xml]))
+  (:require [clojure.data.xml :as xml]
+            [clojure.string :as str]))
 
 (defn get-children [element tag]
   (->> element
@@ -10,9 +11,12 @@
   (first (get-children element tag)))
 
 (defn get-str [element tag]
-  (->> (get-child element tag)
-       :content
-       first))
+  (let [s (->> (get-child element tag)
+             :content
+             first)]
+    (if s
+      (str/trim s)
+      s)))
 
 (defn element->map [element keys]
   (->> keys

@@ -67,4 +67,14 @@
   (is (= (r/parse-rss (java.io.FileReader. "test/examples/empty.xml"))
          {:title "Empty blog" :link "https://blog.example.com/empty"
           :description "This is a blog with no posts"
-          :items (list)})))
+          :items (list)}))
+  (is (= (r/parse-rss (java.io.FileReader. "test/examples/blog.xml"))
+         {:title "My blog" :link "https://blog.example.com/blog"
+          :description "Here's a real blog"
+          :items (list
+                  {:title "Cool post"
+                   :link "https://blog.example.com/blog/cool-post"
+                   :description "Here's how I wrote this really cool post."}
+                  {:title "Another really cool post"
+                   :link "https://blog.example.com/blog/another"
+                   :description "Another one."})})))

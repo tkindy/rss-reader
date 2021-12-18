@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>My blog</title>
+    <link>https://blog.example.com/blog</link>
+    <description>Here's a real blog</description>
+    <item>
+      <title>Cool post</title>
+      <link>https://blog.example.com/blog/cool-post</link>
+      <description>
+        Here's how I wrote this really cool post.
+</description>
+    </item>
+    <item>
+      <title>Another really cool post</title>
+      <link>https://blog.example.com/blog/another</link>
+      <description>
+        Another one.
+</description>
+    </item>
+  </channel>
+</rss>
