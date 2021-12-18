@@ -1,5 +1,5 @@
-(ns com.tylerkindy.readitlater.html-test
-  (:require [com.tylerkindy.readitlater.html :as h]
+(ns com.tylerkindy.rssreader.html-test
+  (:require [com.tylerkindy.rssreader.html :as h]
             [clojure.test :refer [deftest is]]
             [clojure.string :as str]))
 

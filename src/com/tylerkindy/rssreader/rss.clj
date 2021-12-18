@@ -1,7 +1,7 @@
-(ns com.tylerkindy.readitlater.rss
+(ns com.tylerkindy.rssreader.rss
   (:require [clojure.data.xml :as xml]
             [clojure.string :as str]
-            [com.tylerkindy.readitlater.html :as html]))
+            [com.tylerkindy.rssreader.html :as html]))
 
 (defn get-children [element tag]
   (->> element

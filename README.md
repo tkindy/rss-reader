@@ -1,3 +1,3 @@
-# read-it-later
+# rss-reader
 
-A prototype read-it-later app (like Pocket or Instapaper) also including an RSS reader (like Feedly).
+A prototype RSS reader (like Feedly).

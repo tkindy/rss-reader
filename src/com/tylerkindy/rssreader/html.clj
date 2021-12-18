@@ -1,4 +1,4 @@
-(ns com.tylerkindy.readitlater.html)
+(ns com.tylerkindy.rssreader.html)
 
 (def safelist (org.jsoup.safety.Safelist/relaxed))
 
