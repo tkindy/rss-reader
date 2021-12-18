@@ -13,3 +13,8 @@
   (->> (get-child element tag)
        :content
        first))
+
+(defn element->map [element keys]
+  (->> keys
+       (map (fn [key] {key (get-str element key)}))
+       (apply merge)))

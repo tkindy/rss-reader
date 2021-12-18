@@ -41,3 +41,8 @@
          "Empty blog"))
   (is (= (r/get-str empty-channel :link)
          "https://blog.example.com")))
+
+(deftest element->map
+  (is (= (r/element->map empty-channel [:title :description])
+         {:title "Empty blog"
+          :description "This is a blog with no posts"})))
