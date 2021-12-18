@@ -21,19 +21,24 @@
       .body
       .text))
 
+(defn build-index [extract items]
+  (->> items
+       (mapcat (fn [{:keys [id], :as item}]
+                 (->> item
+                      extract
+                      (map (fn [k] {k #{id}})))))
+       (apply merge-with set/union)))
+
 (defn extract-terms [html]
   (->> (str/split (extract-text html) split-regex)
        (filter (comp not str/blank?))
        (map str/lower-case)
        (filter (comp not stopwords))))
 
+
 (defn build-term-index [items]
-  (->> items
-       (mapcat (fn [{:keys [id description]}]
-                 (->> description
-                      extract-terms
-                      (map (fn [term] {term #{id}})))))
-       (apply merge-with set/union)))
+  (build-index (fn [{:keys [description]}] (extract-terms description))
+               items))
 
 (defn extract-trigrams [html]
   (->> (str/split (extract-text html) split-regex)
@@ -41,12 +46,8 @@
        (partition 3 1)))
 
 (defn build-trigram-index [items]
-  (->> items
-       (mapcat (fn [{:keys [id description]}]
-                 (->> description
-                      extract-trigrams
-                      (map (fn [trigram] {trigram #{id}})))))
-       (apply merge-with set/union)))
+  (build-index (fn [{:keys [description]}] (extract-trigrams description))
+               items))
 
 (defn -main [in]
   (let [items (read-items in)
