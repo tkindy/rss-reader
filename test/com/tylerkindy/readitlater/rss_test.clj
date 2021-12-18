@@ -62,3 +62,9 @@
   (is (= (r/element->map empty-channel [:title :foo :description])
          {:title "Empty blog"
           :description "This is a blog with no posts"})))
+
+(deftest parse-rss
+  (is (= (r/parse-rss (java.io.FileReader. "test/examples/empty.xml"))
+         {:title "Empty blog" :link "https://blog.example.com/empty"
+          :description "This is a blog with no posts"
+          :items (list)})))

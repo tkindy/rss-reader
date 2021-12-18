@@ -19,3 +19,14 @@
        (map (fn [key] [key (get-str element key)]))
        (filter (comp not nil? second))
        (into {})))
+
+(defn build-item [element]
+  (element->map element [:title :link :description]))
+
+(defn parse-rss [input]
+  (let [parsed (xml/parse input)
+        channel (get-child parsed :channel)
+        items (map build-item (get-children channel :item))]
+    (-> channel
+        (element->map [:title :link :description])
+        (assoc :items items))))
