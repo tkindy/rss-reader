@@ -1,4 +1,5 @@
-{:deps {org.clojure/data.xml {:mvn/version "0.2.0-alpha6"}}
+{:deps {org.clojure/data.xml {:mvn/version "0.2.0-alpha6"}
+        org.jsoup/jsoup {:mvn/version "1.14.3"}}
  :aliases
  {:test {:extra-paths ["test"]
          :extra-deps {io.github.cognitect-labs/test-runner
