@@ -8,7 +8,7 @@
        slurp
        read-string))
 
-(def split-regex #"[\s,.\":]")
+(def split-regex #"(?:\s|,|(?:\.\s)|\"|:|\|)")
 (def stopwords (->> (slurp "data/stopwords.txt")
                     str/split-lines
                     (filter (comp not str/blank?))
