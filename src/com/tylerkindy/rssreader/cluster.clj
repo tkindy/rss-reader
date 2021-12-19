@@ -50,10 +50,6 @@
        (map (fn [[term ids]] [term (count ids)]))
        (sort-by (fn [[_ count]] (* -1 count)))))
 
-(defn -main [in]
-  (let [items (read-items in)
-        term-index (build-term-index items)]))
-
 (comment
   (->> "output/items.edn"
        read-items
