@@ -42,7 +42,9 @@
 (defn extract-ngrams [n html]
   (->> (str/split (extract-text html) split-regex)
        (filter (comp not str/blank?))
-       (partition n 1)))
+       (map str/lower-case)
+       (partition n 1)
+       (filter (fn [ngram] (not-every? stopwords ngram)))))
 
 (defn extract-trigrams [html]
   (extract-ngrams 3 html))
