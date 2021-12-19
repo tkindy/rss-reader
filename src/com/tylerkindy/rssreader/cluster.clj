@@ -36,7 +36,7 @@
 
 
 (defn build-term-index [items]
-  (build-index (fn [{:keys [description]}] (extract-terms description))
+  (build-index (fn [{:keys [title]}] (extract-terms title))
                items))
 
 (defn extract-trigrams [html]
@@ -45,7 +45,7 @@
        (partition 3 1)))
 
 (defn build-trigram-index [items]
-  (build-index (fn [{:keys [description]}] (extract-trigrams description))
+  (build-index (fn [{:keys [title]}] (extract-trigrams title))
                items))
 
 (defn -main [in]
