@@ -39,13 +39,20 @@
   (build-index (fn [{:keys [title]}] (extract-terms title))
                items))
 
-(defn extract-trigrams [html]
+(defn extract-ngrams [n html]
   (->> (str/split (extract-text html) split-regex)
        (filter (comp not str/blank?))
-       (partition 3 1)))
+       (partition n 1)))
+
+(defn extract-trigrams [html]
+  (extract-ngrams 3 html))
 
 (defn build-trigram-index [items]
   (build-index (fn [{:keys [title]}] (extract-trigrams title))
+               items))
+
+(defn build-ngram-index [n items]
+  (build-index (fn [{:keys [title]}] (extract-ngrams n title))
                items))
 
 (defn -main [in]
