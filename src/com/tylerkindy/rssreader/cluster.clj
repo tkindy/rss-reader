@@ -34,7 +34,6 @@
        (map str/lower-case)
        (filter (comp not stopwords))))
 
-
 (defn build-term-index [items]
   (build-index (fn [{:keys [title]}] (extract-terms title))
                items))
