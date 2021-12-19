@@ -57,6 +57,11 @@
   (build-index (fn [{:keys [title]}] (extract-ngrams n title))
                items))
 
+(defn sorted-index [index]
+  (->> index
+       (map (fn [[term ids]] [term (count ids)]))
+       (sort-by (fn [[_ count]] (* -1 count)))))
+
 (defn -main [in]
   (let [items (read-items in)
         term-index (build-term-index items)]))
@@ -65,6 +70,10 @@
   (->> "output/items.edn"
        read-items
        build-term-index
-       (map (fn [[term ids]] [term (count ids)]))
-       (sort-by (fn [[_ count]] (* -1 count)))
+       sorted-index
+       (take 25))
+  (->> "output/items.edn"
+       read-items
+       build-trigram-index
+       sorted-index
        (take 25)))
