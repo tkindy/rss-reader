@@ -6,8 +6,7 @@
 (defn read-items [in]
   (->> in
        slurp
-       read-string
-       (map-indexed (fn [id item] (assoc item :id id)))))
+       read-string))
 
 (def split-regex #"[\s,.\":]")
 (def stopwords (->> (slurp "data/stopwords.txt")
@@ -23,10 +22,10 @@
 
 (defn build-index [extract items]
   (->> items
-       (mapcat (fn [{:keys [id], :as item}]
+       (mapcat (fn [{:keys [link], :as item}]
                  (->> item
                       extract
-                      (map (fn [k] {k #{id}})))))
+                      (map (fn [k] {k #{link}})))))
        (apply merge-with set/union)))
 
 (defn extract-terms [html]
