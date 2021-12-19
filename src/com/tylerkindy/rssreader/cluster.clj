@@ -28,16 +28,6 @@
                       (map (fn [k] {k #{link}})))))
        (apply merge-with set/union)))
 
-(defn extract-terms [html]
-  (->> (str/split (extract-text html) split-regex)
-       (filter (comp not str/blank?))
-       (map str/lower-case)
-       (filter (comp not stopwords))))
-
-(defn build-term-index [items]
-  (build-index (fn [{:keys [title]}] (extract-terms title))
-               items))
-
 (defn extract-ngrams [n html]
   (->> (str/split (extract-text html) split-regex)
        (filter (comp not str/blank?))
@@ -45,16 +35,15 @@
        (partition n 1)
        (filter (fn [ngram] (not-every? stopwords ngram)))))
 
-(defn extract-trigrams [html]
-  (extract-ngrams 3 html))
-
-(defn build-trigram-index [items]
-  (build-index (fn [{:keys [title]}] (extract-trigrams title))
-               items))
-
 (defn build-ngram-index [n items]
   (build-index (fn [{:keys [title]}] (extract-ngrams n title))
                items))
+
+(defn build-term-index [items]
+  (build-ngram-index 1 items))
+
+(defn build-trigram-index [items]
+  (build-ngram-index 3 items))
 
 (defn sorted-index [index]
   (->> index
